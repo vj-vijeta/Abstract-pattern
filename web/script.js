@@ -123,7 +123,7 @@ class ChemicalDatabank {
             case "mercury": return 200.592;
             case "oxygen": return 32.0;
             case "gold": return 196.97;
-            
+            //for verifing the pattern remove or add more values
             
         }
     }
@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const toggleRendering = () => {
     const compounds = ["Water", "Benzene", "Ethanol", "Mercury", "Oxygen", "Gold", "Sulfur", "Uranium", "Silver", "Unknown"];
+    // adding more elements or componnet to the list to show the adaptor pattern 
     const currentCompound = compounds[Math.floor(Math.random() * compounds.length)];
     const compound = currentCompound === "Unknown" ? new Compound() : new RichCompound(currentCompound);
     compound.display();

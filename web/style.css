@@ -4,6 +4,7 @@ body {
     margin: auto;
     padding: 20px;
     text-align: center;
+    transition: background-color 0.5s ease;
 }
 
 #output {
@@ -18,4 +19,20 @@ body {
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 20px; /* Make the button rounded */
+    background-color: #3498db; /* Set the button background color */
+    color: #fff; /* Set the button text color */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+#container {
+    position:relative;
+    background: rgba(255, 255, 255, 0.3); /* Increase the opacity to 0.3 */
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a shadow to the container */
 }
