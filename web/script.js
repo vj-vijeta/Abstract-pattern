@@ -11,6 +11,24 @@ class Compound {
         if (outputDiv) {
             outputDiv.innerHTML = `<h2>Compound: Unknown ------ </h2>`;
         }
+
+        // Log details to console for unknown compound
+        console.log("Unknown Compound Details:");
+        if (this.molecularFormula) {
+            console.log("Formula:", this.molecularFormula);
+        }
+        if (this.molecularWeight) {
+            console.log("Weight:", this.molecularWeight);
+        }
+        if (this.meltingPoint) {
+            console.log("Melting Pt:", this.meltingPoint);
+        }
+        if (this.boilingPoint) {
+            console.log("Boiling Pt:", this.boilingPoint);
+        }
+
+        // Change background color dynamically
+        document.body.style.backgroundColor = getRandomColor();
     }
 }
 
@@ -21,10 +39,7 @@ class RichCompound extends Compound {
         this.bank = new ChemicalDatabank();
     }
     
-
     display() {
-
-
         this.boilingPoint = this.bank.getCriticalPoint(this.chemical, "B");
         this.meltingPoint = this.bank.getCriticalPoint(this.chemical, "M");
         this.molecularWeight = this.bank.getMolecularWeight(this.chemical);
@@ -34,12 +49,30 @@ class RichCompound extends Compound {
         if (outputDiv) {
             outputDiv.innerHTML = `
                 <h2>Compound: ${this.chemical} ------ </h2>
-                <p>Formula: ${this.molecularFormula}</p>
-                <p>Weight: ${this.molecularWeight}</p>
-                <p>Melting Pt: ${this.meltingPoint}</p>
-                <p>Boiling Pt: ${this.boilingPoint}</p>
+                ${this.molecularFormula ? `<p>Formula: ${this.molecularFormula}</p>` : ''}
+                ${this.molecularWeight ? `<p>Weight: ${this.molecularWeight}</p>` : ''}
+                ${this.meltingPoint ? `<p>Melting Pt: ${this.meltingPoint}</p>` : ''}
+                ${this.boilingPoint ? `<p>Boiling Pt: ${this.boilingPoint}</p>` : ''}
             `;
         }
+
+        // Log details to console for known compound
+        console.log(`${this.chemical} Compound Details:`);
+        if (this.molecularFormula) {
+            console.log("Formula:", this.molecularFormula);
+        }
+        if (this.molecularWeight) {
+            console.log("Weight:", this.molecularWeight);
+        }
+        if (this.meltingPoint) {
+            console.log("Melting Pt:", this.meltingPoint);
+        }
+        if (this.boilingPoint) {
+            console.log("Boiling Pt:", this.boilingPoint);
+        }
+
+        // Change background color dynamically
+        document.body.style.backgroundColor = getRandomColor();
     }
 }
 
@@ -54,7 +87,6 @@ class ChemicalDatabank {
                 case "oxygen": return -218.8;
                 case "gold": return 1064;
                 case "sulfur": return 115.21;
-                
             }
         } else {
             switch (compound.toLowerCase()) {
@@ -97,20 +129,28 @@ class ChemicalDatabank {
     }
 }
 
-const compounds = ["Water", "Benzene", "Ethanol", "Mercury", "Oxygen", "Gold", "Sulfur", "uranium", "Silver","Unknown"];
-let currentIndex = 0;
-
-const toggleRendering = () => {
-currentIndex = (currentIndex + 1) % compounds.length;
-const currentCompound = compounds[currentIndex];
-const compound = currentCompound === "Unknown" ? new Compound() : new RichCompound(currentCompound);
-compound.display();
-};
-
-const outputDiv = document.getElementById('output');
-if (outputDiv) {
-    const water = new RichCompound("Water");
-    water.display();
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
-document.getElementById('toggleButton')?.addEventListener('click', toggleRendering);
+document.addEventListener('DOMContentLoaded', () => {
+    const outputDiv = document.getElementById('output');
+    if (outputDiv) {
+        const water = new RichCompound("Water");
+        water.display();
+    }
+
+    document.getElementById('toggleButton')?.addEventListener('click', toggleRendering);
+});
+
+const toggleRendering = () => {
+    const compounds = ["Water", "Benzene", "Ethanol", "Mercury", "Oxygen", "Gold", "Sulfur", "Uranium", "Silver", "Unknown"];
+    const currentCompound = compounds[Math.floor(Math.random() * compounds.length)];
+    const compound = currentCompound === "Unknown" ? new Compound() : new RichCompound(currentCompound);
+    compound.display();
+};
